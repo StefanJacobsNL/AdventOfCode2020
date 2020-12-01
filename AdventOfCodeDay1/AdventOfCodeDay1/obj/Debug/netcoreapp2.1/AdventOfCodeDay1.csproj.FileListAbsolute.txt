@@ -1,0 +1,12 @@
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\bin\Debug\netcoreapp2.1\AdventOfCodeDay1.deps.json
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\bin\Debug\netcoreapp2.1\AdventOfCodeDay1.runtimeconfig.json
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\bin\Debug\netcoreapp2.1\AdventOfCodeDay1.runtimeconfig.dev.json
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\bin\Debug\netcoreapp2.1\AdventOfCodeDay1.dll
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\bin\Debug\netcoreapp2.1\AdventOfCodeDay1.pdb
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\obj\Debug\netcoreapp2.1\AdventOfCodeDay1.csprojAssemblyReference.cache
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\obj\Debug\netcoreapp2.1\AdventOfCodeDay1.csproj.CoreCompileInputs.cache
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\obj\Debug\netcoreapp2.1\AdventOfCodeDay1.AssemblyInfoInputs.cache
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\obj\Debug\netcoreapp2.1\AdventOfCodeDay1.AssemblyInfo.cs
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\obj\Debug\netcoreapp2.1\AdventOfCodeDay1.dll
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\obj\Debug\netcoreapp2.1\AdventOfCodeDay1.pdb
+C:\Users\stefa\source\repos\AdventOfCode2020Day1\AdventOfCodeDay1\AdventOfCodeDay1\bin\Debug\netcoreapp2.1\input.txt
