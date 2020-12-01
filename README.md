@@ -1,1 +1,1 @@
-AdventOfCode2020Day1
+AdventOfCode2020
