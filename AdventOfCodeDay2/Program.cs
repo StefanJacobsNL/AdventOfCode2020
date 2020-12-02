@@ -12,23 +12,22 @@ namespace AdventOfCodeDay2
 
             int counter = 0;
 
-            int[] result = new int[input.Length];
-
             foreach (var item in input)
             {
                 var arraySplit = item.Split(new[] { '-', ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
+
+                int first = int.Parse(arraySplit[0]) - 1;
+                int second = int.Parse(arraySplit[1]) - 1;
+                char letter = arraySplit[2][0];
+                string password = arraySplit[3];
                 
-                string letter = arraySplit[2];
 
-                int test = arraySplit[3].Count(x => x == arraySplit[2][0]);
-
-
-                if(test >= int.Parse(arraySplit[0]) && test <= int.Parse(arraySplit[1]))
+                if(password[first] == letter ^ password[second] == letter)
                 {
                     counter++;
                 }
             }
-            Console.WriteLine($"The anwser is: {counter}");
+            Console.WriteLine($"The anwser of part 2 is: {counter}");
         }
     }
 }
