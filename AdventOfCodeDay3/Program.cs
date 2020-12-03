@@ -8,9 +8,17 @@ namespace AdventOfCodeDay3
     {
         static void Main(string[] args)
         {
-            int stepR3D1 = TraverseSlope(3, 1);
+            long stepR1D1 = TraverseSlope(1, 1);
+            long stepR3D1 = TraverseSlope(3, 1);
+            long stepR5D1 = TraverseSlope(5, 1);
+            long stepR7D1 = TraverseSlope(7, 1);
+            long stepR1D2 = TraverseSlope(1, 2);
 
-            Console.WriteLine($"Currently counted: { stepR3D1 } trees ");
+            long answer = stepR1D1 * stepR3D1 * stepR5D1 * stepR7D1 * stepR1D2;
+
+            Console.WriteLine($"Part 1 answer: { stepR3D1 } trees ");
+            Console.WriteLine($"Part 2 answer: { answer } trees ");
+
         }
 
 
@@ -31,13 +39,17 @@ namespace AdventOfCodeDay3
             do
             {
                 char checkTree = ' ';
-                if (currentStepDown == input.Length)
+                if (currentStepDown >= input.Length)
                 {
-                    checkTree = input[currentStepDown - 1][currentStepRight];
-                    if (checkTree == '#')
+                    if (currentStepDown == input.Length)
                     {
-                        counter++;
+                        checkTree = input[currentStepDown - 1][currentStepRight];
+                        if (checkTree == '#')
+                        {
+                            counter++;
+                        }
                     }
+                    
 
                     break;
                 }
