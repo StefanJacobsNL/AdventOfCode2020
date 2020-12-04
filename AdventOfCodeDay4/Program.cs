@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AdventOfCodeDay3
 {
@@ -35,7 +36,7 @@ namespace AdventOfCodeDay3
                 counter++;
             }
 
-            Console.WriteLine($"The answer of part 1 is: { counter } passports");
+            Console.WriteLine($"The answer of part 2 is: { counter } passports");
         }
 
         public static bool checkList(IEnumerable<string> passportList)
@@ -45,7 +46,7 @@ namespace AdventOfCodeDay3
 
             foreach (var item in passportList)
             {
-                var listSplit = item.Split(new[] { ' ', });
+                var listSplit = item.Split(new[] { ' ' });
 
                 bool passportCheck = false;
 
@@ -66,7 +67,6 @@ namespace AdventOfCodeDay3
                     }
                 }
             }
-
             return checkPassport;
         }
 
@@ -81,35 +81,69 @@ namespace AdventOfCodeDay3
             string hairColor = "hcl";
             string eyeColor = "ecl";
             string passportId = "pid";
-            string countryId = "cid";
 
+            int numberValue = 0;
+
+            
             if (key == birthYear)
             {
-                check = true;
+                numberValue = int.Parse(value);
+                if (value.Length == 4 && (numberValue >= 1920 && numberValue <= 2002))
+                {
+                    check = true;
+                }
             }
             else if (key == issueYear)
             {
-                check = true;
+                numberValue = int.Parse(value);
+                if (value.Length == 4 && (numberValue >= 2010 && numberValue <= 2020))
+                {
+                    check = true;
+                }
             }
             else if (key == expireYear)
             {
-                check = true;
+                numberValue = int.Parse(value);
+                if (value.Length == 4 && (numberValue >= 2020 && numberValue <= 2030))
+                {
+                    check = true;
+                }
             }
             else if (key == height)
             {
-                check = true;
+                var splitHeight = Regex.Match(value, @"^(\d+)(\w+)$");
+                int valueHeight = int.Parse(splitHeight.Groups[1].Value);
+                string valueMS = splitHeight.Groups[2].Value;
+
+                if (valueMS == "cm" && valueHeight >= 150 && valueHeight <= 193)
+                {
+                    check = true;
+                }
+                else if (valueMS == "in" && valueHeight >= 59 && valueHeight <= 76)
+                {
+                    check = true;
+                }
             }
             else if (key == hairColor)
             {
-                check = true;
+                if (Regex.IsMatch(value, @"^#(\d|[a-f]){6}$"))
+                {
+                    check = true;
+                }
             }
             else if (key == eyeColor)
             {
-                check = true;
+                if (Regex.IsMatch(value, @"^(amb|blu|brn|gry|grn|hzl|oth)$"))
+                {
+                    check = true;
+                }
             }
             else if (key == passportId)
             {
-                check = true;
+                if (Regex.IsMatch(value, @"^\d{9}$"))
+                {
+                    check = true;
+                }
             }
             else
             {
