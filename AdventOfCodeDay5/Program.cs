@@ -12,7 +12,7 @@ namespace AdventOfCodeDay5
         {
             var input = File.ReadAllLines("input.txt");
             int row = 8;
-
+            int mySeatID = 0;
             var seatIDList = new List<int>();
 
             foreach (var item in input)
@@ -24,8 +24,23 @@ namespace AdventOfCodeDay5
             }
 
             int maxSeatID = seatIDList.Max();
+            seatIDList.Sort();
+            int counter = seatIDList.Min();
 
-            Console.WriteLine($"The answer of part 1 is: the highest seat ID is { maxSeatID } ");
+            foreach (var item in seatIDList)
+            {
+                if (item != counter)
+                {
+                    mySeatID = counter;
+                    break;
+                }
+                counter++;
+            }
+
+            seatIDList.Sort();
+
+            Console.WriteLine($"The answer of part 1 is: The highest seat ID is { maxSeatID } ");
+            Console.WriteLine($"The answer of part @ is: Your seat ID is { mySeatID } ");
         }
 
         public static int GetRow(string seatInput)
