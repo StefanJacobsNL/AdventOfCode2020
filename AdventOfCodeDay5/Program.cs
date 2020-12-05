@@ -37,10 +37,8 @@ namespace AdventOfCodeDay5
                 counter++;
             }
 
-            seatIDList.Sort();
-
             Console.WriteLine($"The answer of part 1 is: The highest seat ID is { maxSeatID } ");
-            Console.WriteLine($"The answer of part @ is: Your seat ID is { mySeatID } ");
+            Console.WriteLine($"The answer of part 2 is: Your seat ID is { mySeatID } ");
         }
 
         public static int GetRow(string seatInput)
