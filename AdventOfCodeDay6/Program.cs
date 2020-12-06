@@ -36,13 +36,14 @@ namespace AdventOfCodeDay6
 
             answer += checkAnswer;
 
-            Console.WriteLine($"The answer of part 1 is: { answer } ");
+            Console.WriteLine($"The answer of part 2 is: { answer } ");
         }
 
         public static int checkAnswers(IEnumerable<string> declarationFormList)
         {
             int counter = 0;
             var letterList = new List<char>();
+            int groupSize = declarationFormList.Count();
 
             foreach (var item in declarationFormList)
             {
@@ -50,11 +51,26 @@ namespace AdventOfCodeDay6
 
                 foreach (var letter in listSplits)
                 {
-                    if (letterList.Contains(letter) == false)
-                    {
-                        letterList.Add(letter);
-                        counter++;
-                    }
+                    letterList.Add(letter);
+                }
+            }
+
+            letterList.Sort();
+
+            if (groupSize == 1)
+            {
+                foreach (var item in letterList)
+                {
+                    counter++;
+                }
+            }
+            else
+            {
+                var getDuplicates = letterList.GroupBy(x => x).Where(x => x.Count() == groupSize);
+
+                foreach (var item in getDuplicates)
+                {
+                    counter++;
                 }
             }
 
