@@ -3,78 +3,65 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace AdventOfCodeDay6
+namespace AdventOfCodeDay7
 {
     class Program
     {
         static void Main(string[] args)
         {
             var input = File.ReadAllLines("input.txt");
-            var declarationFormList = new List<string>();
-            int counter = 0;
+            var parents = new List<string>();
             int answer = 0;
-            int checkAnswer = 0;
+            string shinyGold = "shiny gold";
 
             foreach (var item in input)
             {
-                counter++;
-                if (string.IsNullOrEmpty(item))
-                {
-                    checkAnswer = checkAnswers(declarationFormList);
+                var bagsSplit = item.Split(new string[] { " contain ", "bags", "bag", ".", ", " }, StringSplitOptions.RemoveEmptyEntries);
 
-                    answer += checkAnswer;
-
-                    declarationFormList.Clear();
-                }
-                else
+                for (int i = 1; i < bagsSplit.Length; i++)
                 {
-                    declarationFormList.Add(item);
+                    if (bagsSplit[i].Contains(shinyGold))
+                    {
+                        parents.Add(bagsSplit[0]);
+                    }
                 }
             }
 
-            checkAnswer = checkAnswers(declarationFormList);
+            foreach (var item in input)
+            {
+                var inputSplit = item.Split(new string[] { " contain ", "bags", "bag", ".", ", " }, StringSplitOptions.RemoveEmptyEntries);
 
-            answer += checkAnswer;
+                answer = CheckBags(parents);
+            }
 
-            Console.WriteLine($"The answer of part 2 is: { answer } ");
+            Console.WriteLine($"The answer of part 1 is: { answer } ");
         }
 
-        public static int checkAnswers(IEnumerable<string> declarationFormList)
+        public static int CheckBags(List<string> parents)
         {
-            int counter = 0;
-            var letterList = new List<char>();
-            int groupSize = declarationFormList.Count();
+            var input = File.ReadAllLines("input.txt");
 
-            foreach (var item in declarationFormList)
+            foreach (var item in input)
             {
-                var listSplits = item.ToCharArray();
+                var bagsSplit = item.Split(new string[] { " contain ", "bags", "bag", ".", ", " }, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (var letter in listSplits)
+                for (int i = 1; i < bagsSplit.Length; i++)
                 {
-                    letterList.Add(letter);
+                    for (int countParents = 0; countParents < parents.Count(); countParents++)
+                    {
+                        if (bagsSplit[i].Contains(parents[countParents]))
+                        {
+                            if (parents.Contains(bagsSplit[0]) == false)
+                            {
+                                parents.Add(bagsSplit[0]);
+                                CheckBags(parents);
+                            }
+                        }
+                    }
                 }
             }
 
-            letterList.Sort();
-
-            if (groupSize == 1)
-            {
-                foreach (var item in letterList)
-                {
-                    counter++;
-                }
-            }
-            else
-            {
-                var getDuplicates = letterList.GroupBy(x => x).Where(x => x.Count() == groupSize);
-
-                foreach (var item in getDuplicates)
-                {
-                    counter++;
-                }
-            }
-
-            return counter;
+            return parents.Count();
         }
     }
 }
