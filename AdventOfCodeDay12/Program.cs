@@ -11,18 +11,22 @@ namespace AdventOfCodeDay12
         {
             var input = File.ReadAllLines("input.txt").ToList();
             int answerPart1 = 0;
+            int answerPart2 = 0;
 
             answerPart1 = TravelActions(input);
+            answerPart2 = WaypointTracking(input);
 
             Console.WriteLine($"The answer of part 1 is: { answerPart1 } ");
+            Console.WriteLine($"The answer of part 2 is: { answerPart2 } ");
         }
 
 
         public static int TravelActions(List<string> travelActions)
         {
             int answer = 0;
-            int x = 0;
-            int y = 0;
+            int shipX = 0;
+            int shipY = 0;
+            
             char currentDirection = 'E';
 
             foreach (var item in travelActions)
@@ -36,52 +40,128 @@ namespace AdventOfCodeDay12
                 }
                 else if (newDirection == 'N')
                 {
-                    y += newMovement;
+                    shipY += newMovement;
                 }
                 else if (newDirection == 'S')
                 {
-                    y -= newMovement;
+                    shipY -= newMovement;
                 }
                 else if (newDirection == 'E')
                 {
-                    x += newMovement;
+                    shipX += newMovement;
                 }
                 else if (newDirection == 'W')
                 {
-                    x -= newMovement;
+                    shipX -= newMovement;
                 }
                 else if (newDirection == 'F')
                 {
                     if (currentDirection == 'N')
                     {
-                        y += newMovement;
+                        shipY += newMovement;
                     }
                     else if (currentDirection == 'S')
                     {
-                        y -= newMovement;
+                        shipY -= newMovement;
                     }
                     else if (currentDirection == 'E')
                     {
-                        x += newMovement;
+                        shipX += newMovement;
                     }
                     else if (currentDirection == 'W')
                     {
-                        x -= newMovement;
+                        shipX -= newMovement;
                     }
                 }
             }
 
-            answer = Math.Abs(x) + Math.Abs(y);
+            answer = Math.Abs(shipX) + Math.Abs(shipY);
 
             return answer;
         }
 
+        public static int WaypointTracking(List<string> travelActions)
+        {
+            int answer = 0;
+            int shipX = 0;
+            int shipY = 0;
+            int waypointX = 10;
+            int waypointY = 1;
+            
+            foreach (var item in travelActions)
+            {
+                var newDirection = item[0];
+                int newMovement = int.Parse(item.Split(item[0]).Last());
+                int currentWaypointX = waypointX;
+                int currentWaypointY = waypointY;
+
+                if (newDirection == 'L' || newDirection == 'R')
+                {
+                    if (newMovement == 90)
+                    {
+                        if (newDirection == 'R')
+                        {
+                            waypointX = currentWaypointY;
+                            waypointY = -currentWaypointX;
+                        }
+                        else if (newDirection == 'L')
+                        {
+                            waypointX = -currentWaypointY;
+                            waypointY = currentWaypointX;
+                        }
+
+                    }
+                    else if (newMovement == 180)
+                    {
+                        waypointY = -currentWaypointY;
+                        waypointX = -currentWaypointX;
+                    }
+                    else if (newMovement == 270)
+                    {
+                        if (newDirection == 'R')
+                        {
+                            waypointX = -currentWaypointY;
+                            waypointY = currentWaypointX;
+                        }
+                        else if (newDirection == 'L')
+                        {
+                            waypointX = currentWaypointY;
+                            waypointY = -currentWaypointX;
+                        }
+                    }
+                }
+                else if (newDirection == 'N')
+                {
+                    waypointY += newMovement;
+                }
+                else if (newDirection == 'S')
+                {
+                    waypointY -= newMovement;
+                }
+                else if (newDirection == 'E')
+                {
+                    waypointX += newMovement;
+                }
+                else if (newDirection == 'W')
+                {
+                    waypointX -= newMovement;
+                }
+                else if (newDirection == 'F')
+                {
+                    shipY += waypointY * newMovement;
+                    shipX += waypointX * newMovement;
+                }
+            }
+
+            answer = Math.Abs(shipX) + Math.Abs(shipY);
+
+            return answer;
+        }
 
         public static char GoLeftOrRight(char currentDirection, string newDirection)
         {
             char leftOrRight = newDirection[0];
             int turningDegrees = int.Parse(newDirection.Split(leftOrRight).Last());
-
 
             if (turningDegrees == 90)
             {
@@ -196,8 +276,6 @@ namespace AdventOfCodeDay12
                     }
                 }
             }
-
-            
 
             return currentDirection;
         }
