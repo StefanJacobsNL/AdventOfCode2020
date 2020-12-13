@@ -11,22 +11,81 @@ namespace AdventOfCodeDay13
         {
             var input = File.ReadAllLines("input.txt").ToList();
             long answerPart1 = 0;
+            long answerPart2 = 0;
             var busList = new List<int>();
+            var minutsList = new List<int>();
             long timeStap = int.Parse(input[0]);
 
-            var splitInput = input[1].Split(new[] { ',', 'x' }, StringSplitOptions.RemoveEmptyEntries);
+            var busSplit = input[1].Split(new[] { ',', 'x' }, StringSplitOptions.RemoveEmptyEntries);
+            var indexSplit = input[1].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            foreach (var item in splitInput)
+            foreach (var item in busSplit)
             {
                 busList.Add(int.Parse(item));
+
+                minutsList.Add(indexSplit.FindIndex(x => x == item));
             }
 
             answerPart1 = IDOfEarliestBus(timeStap, busList);
+            answerPart2 = CheckForGoldenCoin(busList, minutsList);
 
             Console.WriteLine($"The answer of part 1 is: { answerPart1 } ");
+            Console.WriteLine($"The answer of part 2 is: { answerPart2 } ");
         }
 
-        public static long IDOfEarliestBus(long timeStap, List<int> busList)
+        public static long CheckForGoldenCoin(List<int> busList, List<int>minutsList)
+        {
+            long answer = 0;
+            long time = 0;
+            int getIndex = 0;
+            bool foundTime = false;
+            var newTimes = new List<long>();
+            int counter = 0;
+            int counterCorrect = 0;
+
+            foreach (var item in busList)
+            {
+                newTimes.Add(item);
+            }
+
+            while (foundTime == false)
+            {
+                foreach (var item in minutsList)
+                {
+                    if (newTimes.Contains(time) == true)
+                    {
+                        getIndex = newTimes.IndexOf(time);
+                        newTimes[getIndex] += busList[getIndex];
+                    }
+                }
+
+                foreach (var item in newTimes)
+                {
+                    if (item == newTimes[0] + minutsList[counter])
+                    {
+                        counterCorrect++;
+                    }
+
+                    counter++;
+                }
+
+                if (counterCorrect == busList.Count)
+                {
+                    foundTime = true;
+                    answer = newTimes.Min();
+                }
+                else
+                {
+                    counter = 0;
+                    counterCorrect = 0;
+                    time++;
+                }
+            }
+
+            return answer;
+        }
+
+        public static long IDOfEarliestBus(long timeStamp, List<int> busList)
         {
             long answer = 0;
             var departList = new List<long>();
@@ -35,29 +94,29 @@ namespace AdventOfCodeDay13
 
             foreach (var item in busList)
             {
-                long departTime = GetTimeStapFromBus(item, timeStap);
+                long departTime = GetTimeStapFromBus(item, timeStamp);
                 departList.Add(departTime);
             }
 
             foreach (var item in busList)
             {
-                if (GetTimeStapFromBus(item, timeStap) == departList.Min())
+                if (GetTimeStapFromBus(item, timeStamp) == departList.Min())
                 {
                     busId = item;
-                    earliestTime = GetTimeStapFromBus(item, timeStap);
+                    earliestTime = GetTimeStapFromBus(item, timeStamp);
                 }
             }
 
-            answer = busId * (departList.Min() - timeStap);
+            answer = busId * (departList.Min() - timeStamp);
 
             return answer;
         }
 
-        public static long GetTimeStapFromBus(int busId, long timeStap)
+        public static long GetTimeStapFromBus(int busId, long timeStamp)
         {
             long earliestTime = 0;
 
-            while (earliestTime < timeStap)
+            while (earliestTime < timeStamp)
             {
                 earliestTime += busId;
             }
